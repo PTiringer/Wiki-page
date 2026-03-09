@@ -12,8 +12,8 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: MIT License",
 ]
-name = "Wiki-page"
-description = "Searchable Wiki Page"
+name = "nomad-wiki-page"
+description = "Wiki page app and schema plugin for NOMAD"
 version = "0.1.0"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -24,11 +24,7 @@ maintainers = [
     { name = "Peter Tiringer", email = "tiringer@cbs.mpg.de" },
 ]
 license = { file = "LICENSE" }
-dependencies = [
-    "nomad-lab>=1.4.1",
-    "pydantic",
-    "temporalio"
-]
+dependencies = ["nomad-lab>=1.4.1"]
 
 [project.urls]
 Repository = "https://github.com/PTiringer/Wiki-page"
@@ -42,8 +38,8 @@ dev = [
     "mkdocs-material==8.1.1",
     "pymdown-extensions",
     "mkdocs-click",
-    "pytest-asyncio",
 ]
+
 [dependency-groups]
 north = [
     "jupyterlab",
@@ -54,9 +50,8 @@ north = [
 extra-index-url = [
   "https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple",
 ]
-    
+
 [tool.ruff]
-# Exclude a variety of commonly ignored directories.
 exclude = [
     ".bzr",
     ".direnv",
@@ -80,52 +75,26 @@ exclude = [
     "node_modules",
     "venv",
 ]
-
-# Same as Black.
 line-length = 88
 indent-width = 4
 
-
 [tool.ruff.lint]
-select = [
-    # pycodestyle
-    "E",
-    # Pyflakes
-    "F",
-    # pyupgrade
-    "UP",
-    # isort
-    "I",
-    # pylint
-    "PL",
-]
-
+select = ["E", "F", "UP", "I", "PL"]
 ignore = [
-    "F403", # 'from module import *' used; unable to detect undefined names
-    "PLC0415", # `import` should be at the top-level of a file
-    "E501", # line too long
+    "F403",
+    "PLC0415",
+    "E501",
 ]
-
 fixable = ["ALL"]
-
-# Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 [tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["PLC0415"] # import-outside-top-level
+"__init__.py" = ["PLC0415"]
 
-# this is entirely optional, you can remove this if you wish to
 [tool.ruff.format]
-# use single quotes for strings.
 quote-style = "single"
-
-# indent with spaces, rather than tabs.
 indent-style = "space"
-
-# Like Black, respect magic trailing commas.
 skip-magic-trailing-comma = false
-
-# Like Black, automatically detect the appropriate line ending.
 line-ending = "auto"
 
 [tool.setuptools]
@@ -135,13 +104,9 @@ package-dir = { "" = "src" }
 where = ["src"]
 
 [project.entry-points.'nomad.plugin']
-parser_entry_point = "wiki_page.parsers:parser_entry_point"
 schema_package_entry_point = "wiki_page.schema_packages:schema_package_entry_point"
-normalizer_entry_point = "wiki_page.normalizers:normalizer_entry_point"
 app_entry_point = "wiki_page.apps:app_entry_point"
 example_upload_entry_point = "wiki_page.example_uploads:example_upload_entry_point"
-action_entry_point = "wiki_page.actions:simple_action_entry_point"
-north_tool_entry_point = "wiki_page.north_tools.my_north_tool:north_tool_entry_point"
+
 [tool.cruft]
-# Avoid updating workflow files, this leads to permissions issues
 skip = [".github/*"]

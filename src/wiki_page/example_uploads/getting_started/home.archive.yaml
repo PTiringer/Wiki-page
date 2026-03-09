@@ -1,0 +1,35 @@
+data:
+  m_def: wiki_page.schema_packages.schema_package.WikiPage
+  name: Home
+  tags:
+    - wiki
+    - knowledge-base
+  summary: |
+    <p>Welcome to the internal knowledge base. This page acts as the entry point
+    for experiments, NeXus conventions, and operational notes.</p>
+  slug: home
+  page_type: guide
+  body: |
+    <h2>Purpose</h2>
+    <p>This wiki page shows how a knowledge-base entry can be edited with the
+    same ELN components used elsewhere in NOMAD.</p>
+    <h2>Editing model</h2>
+    <p>The schema uses rich text fields for page content and repeated sub-sections
+    for structured content blocks.</p>
+  sidebar: |
+    <p><strong>Quick links</strong></p>
+    <ul>
+      <li>NeXus ingestion guide</li>
+      <li>Instrument conventions</li>
+      <li>Troubleshooting</li>
+    </ul>
+  sections:
+    - title: NeXus Workflow
+      anchor: nexus-workflow
+      content: |
+        <p>Document how files are named, validated, and uploaded into NOMAD.</p>
+    - title: Editorial Rules
+      anchor: editorial-rules
+      content: |
+        <p>Explain who can edit pages, how tags are used, and when content should
+        be split into a new page.</p>

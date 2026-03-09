@@ -1,8 +1,8 @@
 from nomad.config.models.plugins import ExampleUploadEntryPoint
 
 example_upload_entry_point = ExampleUploadEntryPoint(
-    title='New Example Upload',
+    title='Wiki Pages Example Upload',
     category='Examples',
-    description='Description of this example upload.',
+    description='Example wiki page entries for the Wiki Pages plugin.',
     path='example_uploads/getting_started',
 )
