@@ -1,5 +1,5 @@
 from nomad.config.models.plugins import AppEntryPoint
-from nomad.config.models.ui import App, Column, Columns, FilterMenus, Filters, SearchQuantities
+from nomad.config.models.ui import App, Column, Columns, FilterMenu, FilterMenus, Filters, SearchQuantities
 
 schema = 'wiki_page.schema_packages.schema_package.WikiPage'
 
@@ -14,29 +14,35 @@ app_entry_point = AppEntryPoint(
         readme=(
             'This page allows you to search **wiki-style pages** within NOMAD. '
             'It is intended for ELN-like knowledge base content with rich text '
-            'sections, tags, and related-page references.'
+            'summaries, tags, and structured To Do items.'
         ),
         search_quantities=SearchQuantities(include=[f'*#{schema}']),
         filters_locked={'section_defs.definition_qualified_name': schema},
-        filters=Filters(include=[f'*{schema}']),
+        filters=Filters(exclude=['mainfile', 'entry_name', 'combine']),
         columns=Columns(
             selected=[
                 'entry_name',
-                f'data.slug#{schema}',
-                f'data.page_type#{schema}',
                 f'data.summary#{schema}',
                 'upload_create_time',
                 'authors',
             ],
             options={
                 'entry_name': Column(label='Title'),
-                f'data.slug#{schema}': Column(label='Slug'),
-                f'data.page_type#{schema}': Column(label='Page type'),
                 f'data.summary#{schema}': Column(label='Summary'),
                 'upload_create_time': Column(label='Updated'),
                 'authors': Column(),
             },
         ),
-        filter_menus=FilterMenus(options={}),
+        filter_menus=FilterMenus(
+            options={
+                'material': FilterMenu(label='Material'),
+                'elements': FilterMenu(label='Elements / Formula', level=1, size='xl'),
+                'eln': FilterMenu(label='Electronic Lab Notebook'),
+                'custom_quantities': FilterMenu(label='User Defined Quantities', size='l'),
+                'author': FilterMenu(label='Author / Origin / Dataset', size='m'),
+                'metadata': FilterMenu(label='Visibility / IDs / Schema'),
+                'optimade': FilterMenu(label='Optimade', size='m'),
+            }
+        ),
     ),
 )

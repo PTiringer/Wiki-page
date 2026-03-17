@@ -9,8 +9,7 @@ Wiki-style knowledge base plugin for NOMAD.
 - An example upload with a sample wiki home page
 
 The schema is designed to feel like the built-in ELN editor while adding wiki-oriented
-fields such as a slug, page type, rich text body, sidebar, related pages, and repeated
-content sections.
+fields such as a slug, page type, rich text body, sidebar, and structured To Do items.
 
 ## Development
 

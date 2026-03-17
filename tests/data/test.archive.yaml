@@ -5,12 +5,7 @@ data:
     - knowledge-base
   summary: |
     <p>Landing page for the wiki.</p>
-  slug: home
-  page_type: guide
-  body: |
-    <p>Body content.</p>
-  sections:
-    - title: Intro
-      anchor: intro
-      content: |
-        <p>Intro content.</p>
+  to_do:
+    - topic: Publish editorial rules
+      assignee: Alice
+      deadline: '2026-03-31T00:00:00+00:00'

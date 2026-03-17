@@ -8,7 +8,9 @@ def test_schema_package():
     entry_archive = parse(test_file)[0]
     normalize_all(entry_archive)
 
-    assert entry_archive.data.slug == 'home'
-    assert entry_archive.data.page_type == 'guide'
+    assert entry_archive.data.summary == '<p>Landing page for the wiki.</p>\n'
     assert 'wiki' in entry_archive.data.tags
+    assert len(entry_archive.data.to_do) == 1
+    assert entry_archive.data.to_do[0].topic == 'Publish editorial rules'
+    assert entry_archive.data.to_do[0].assignee == 'Alice'
     assert entry_archive.metadata.entry_name == 'Home'

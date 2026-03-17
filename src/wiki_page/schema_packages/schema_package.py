@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING
 
 from nomad.datamodel.data import BasicElnCategory, EntryData
 from nomad.datamodel.metainfo.eln import ElnBaseSection
-from nomad.metainfo import MEnum, MSection, Quantity, Reference, SchemaPackage, Section, SectionProxy, SubSection
+from nomad.metainfo import Datetime, MSection, Quantity, SchemaPackage, Section, SubSection
 
 if TYPE_CHECKING:
     from nomad.datamodel.datamodel import EntryArchive
@@ -11,22 +11,15 @@ if TYPE_CHECKING:
 m_package = SchemaPackage(name='wiki_page')
 
 
-class WikiSection(MSection):
+class WikiTodoItem(MSection):
     m_def = Section(
-        label='Wiki Section',
-        a_eln=dict(properties=dict(order=['title', 'anchor', 'content'])),
+        label='To Do',
+        a_eln=dict(properties=dict(order=['topic', 'assignee', 'deadline'])),
     )
 
-    title = Quantity(type=str, a_eln=dict(component='StringEditQuantity'))
-    anchor = Quantity(
-        type=str,
-        description='Stable identifier that can be used as an in-page anchor.',
-        a_eln=dict(component='StringEditQuantity'),
-    )
-    content = Quantity(
-        type=str,
-        a_eln=dict(component='RichTextEditQuantity', props=dict(height=260)),
-    )
+    topic = Quantity(type=str, a_eln=dict(component='StringEditQuantity'))
+    assignee = Quantity(type=str, a_eln=dict(component='StringEditQuantity'))
+    deadline = Quantity(type=Datetime, a_eln=dict(component='DateTimeEditQuantity'))
 
 
 class WikiPage(ElnBaseSection, EntryData):
@@ -40,13 +33,8 @@ class WikiPage(ElnBaseSection, EntryData):
                 order=[
                     'name',
                     'summary',
-                    'slug',
-                    'page_type',
                     'tags',
-                    'body',
-                    'sidebar',
-                    'related_pages',
-                    'sections',
+                    'to_do',
                 ]
             ),
         ),
@@ -63,32 +51,8 @@ class WikiPage(ElnBaseSection, EntryData):
         type=str,
         a_eln=dict(component='RichTextEditQuantity', props=dict(height=180)),
     )
-    slug = Quantity(
-        type=str,
-        description='Short URL-style identifier for this page.',
-        a_eln=dict(component='StringEditQuantity'),
-    )
-    page_type = Quantity(
-        type=MEnum('article', 'guide', 'reference', 'faq'),
-        default='article',
-        a_eln=dict(component='EnumEditQuantity'),
-    )
-    body = Quantity(
-        type=str,
-        a_eln=dict(component='RichTextEditQuantity', props=dict(height=520)),
-    )
-    sidebar = Quantity(
-        type=str,
-        description='Optional rich text block for callouts or navigation links.',
-        a_eln=dict(component='RichTextEditQuantity', props=dict(height=220)),
-    )
-    related_pages = Quantity(
-        type=Reference(SectionProxy('WikiPage')),
-        shape=['*'],
-        a_eln=dict(component='ReferenceEditQuantity'),
-    )
-    sections = SubSection(
-        section_def=WikiSection,
+    to_do = SubSection(
+        section_def=WikiTodoItem,
         repeats=True,
         a_eln=dict(),
     )
