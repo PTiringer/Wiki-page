@@ -35,13 +35,10 @@ app_entry_point = AppEntryPoint(
         ),
         filter_menus=FilterMenus(
             options={
-                'material': FilterMenu(label='Material'),
-                'elements': FilterMenu(label='Elements / Formula', level=1, size='xl'),
                 'eln': FilterMenu(label='Electronic Lab Notebook'),
                 'custom_quantities': FilterMenu(label='User Defined Quantities', size='l'),
                 'author': FilterMenu(label='Author / Origin / Dataset', size='m'),
                 'metadata': FilterMenu(label='Visibility / IDs / Schema'),
-                'optimade': FilterMenu(label='Optimade', size='m'),
             }
         ),
     ),
