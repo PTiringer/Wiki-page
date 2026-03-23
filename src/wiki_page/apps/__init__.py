@@ -1,5 +1,19 @@
 from nomad.config.models.plugins import AppEntryPoint
-from nomad.config.models.ui import App, Column, Columns, FilterMenu, FilterMenus, Filters, SearchQuantities
+from nomad.config.models.ui import (
+    App,
+    Axis,
+    Column,
+    Columns,
+    Filters,
+    Menu,
+    MenuItemCustomQuantities,
+    MenuItemDefinitions,
+    MenuItemHistogram,
+    MenuItemOptimade,
+    MenuItemTerms,
+    MenuItemVisibility,
+    SearchQuantities,
+)
 
 schema = 'wiki_page.schema_packages.schema_package.WikiPage'
 
@@ -33,13 +47,69 @@ app_entry_point = AppEntryPoint(
                 'authors': Column(),
             },
         ),
-        filter_menus=FilterMenus(
-            options={
-                'eln': FilterMenu(label='Electronic Lab Notebook'),
-                'custom_quantities': FilterMenu(label='User Defined Quantities', size='l'),
-                'author': FilterMenu(label='Author / Origin / Dataset', size='m'),
-                'metadata': FilterMenu(label='Visibility / IDs / Schema'),
-            }
+        menu=Menu(
+            title='Filters',
+            size='sm',
+            items=[
+                Menu(
+                    title='Wiki Pages',
+                    items=[
+                        MenuItemTerms(search_quantity='results.eln.tags', show_input=False),
+                        MenuItemTerms(search_quantity='results.eln.names', options=0),
+                        MenuItemTerms(search_quantity='results.eln.descriptions', options=0),
+                        MenuItemTerms(search_quantity='results.eln.lab_ids', options=0),
+                    ],
+                ),
+                Menu(
+                    title='To Do',
+                    size='lg',
+                    items=[
+                        MenuItemTerms(
+                            search_quantity=f'data.to_do.topic#{schema}',
+                            options=10,
+                        ),
+                        MenuItemTerms(
+                            search_quantity=f'data.to_do.assignee#{schema}',
+                            options=10,
+                        ),
+                        MenuItemHistogram(
+                            x=Axis(search_quantity=f'data.to_do.deadline#{schema}')
+                        ),
+                    ],
+                ),
+                Menu(
+                    title='User Defined Quantities',
+                    size='xl',
+                    items=[MenuItemCustomQuantities()],
+                ),
+                Menu(
+                    title='Author / Origin / Dataset',
+                    size='lg',
+                    items=[
+                        MenuItemTerms(search_quantity='authors.name', options=0),
+                        MenuItemHistogram(x=Axis(search_quantity='upload_create_time')),
+                        MenuItemTerms(
+                            search_quantity='external_db',
+                            options=5,
+                            show_input=False,
+                        ),
+                        MenuItemTerms(search_quantity='datasets.dataset_name'),
+                        MenuItemTerms(search_quantity='datasets.doi', options=0),
+                    ],
+                ),
+                Menu(
+                    title='Visibility / IDs / Schema',
+                    items=[
+                        MenuItemVisibility(),
+                        MenuItemTerms(search_quantity='entry_id', options=0),
+                        MenuItemTerms(search_quantity='upload_id', options=0),
+                        MenuItemTerms(search_quantity='upload_name', options=0),
+                        MenuItemTerms(search_quantity='results.material.material_id', options=0),
+                        MenuItemTerms(search_quantity='datasets.dataset_id', options=0),
+                        MenuItemDefinitions(),
+                    ],
+                ),
+            ],
         ),
     ),
 )
