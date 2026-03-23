@@ -6,19 +6,25 @@ Wiki-style knowledge base plugin for NOMAD.
 
 - A `Wiki Pages` Explore app at `wiki-pages`
 - A `WikiPage` schema package for ELN-style wiki entries
+- Added functionalities: To Dos, with topic, assignee and deadline
 - An example upload with a sample wiki home page
+- Modified filter menues
 
-The schema is designed to feel like the built-in ELN editor while adding wiki-oriented
-fields such as a slug, page type, rich text body, sidebar, and structured To Do items.
+The schema is designed to feel like the built-in ELN editor while adding new functionalities such as To Do items.
 
 ## Development
 
 ```sh
-git clone https://github.com/PTiringer/Wiki-page.git
-cd Wiki-page/Wiki-page
-uv pip install -e '.[dev]'
-pytest tests/apps/test_app.py tests/schema_packages/test_schema_package.py
-```
+clone into packages folder:
+git clone https://github.com/PTiringer/Wiki-page.git 
+´´´
+
+if needed include the packages in the config file: nomad.yaml
+        - "wiki_page.schema_packages:schema_package_entry_point"
+        - "wiki_page.apps:app_entry_point"
+        - "wiki_page.example_uploads:example_upload_entry_point"
+in pyproject.toml:
+   "nomad-wiki-page"
 
 ## Plugin entry points
 
