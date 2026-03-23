@@ -14,7 +14,11 @@ m_package = SchemaPackage(name='wiki_page')
 class WikiTodoItem(MSection):
     m_def = Section(
         label='To Do',
-        a_eln=dict(properties=dict(order=['topic', 'assignee', 'deadline'])),
+        label_quantity='topic',
+        a_eln=dict(
+            overview=True,
+            properties=dict(order=['topic', 'assignee', 'deadline']),
+        ),
     )
 
     topic = Quantity(type=str, a_eln=dict(component='StringEditQuantity'))
