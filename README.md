@@ -17,13 +17,13 @@ The schema is designed to feel like the built-in ELN editor while adding new fun
 ```sh
 clone into packages folder:
 git clone https://github.com/PTiringer/Wiki-page.git 
-´´´
+```
 
-if needed include the packages in the config file: nomad.yaml
-        - "wiki_page.schema_packages:schema_package_entry_point"
-        - "wiki_page.apps:app_entry_point"
-        - "wiki_page.example_uploads:example_upload_entry_point"
-in pyproject.toml:
+if needed include the packages in the config file: nomad.yaml \
+        - "wiki_page.schema_packages:schema_package_entry_point"\
+        - "wiki_page.apps:app_entry_point" \
+        - "wiki_page.example_uploads:example_upload_entry_point"\
+in pyproject.toml:\
    "nomad-wiki-page"
 
 ## Plugin entry points
