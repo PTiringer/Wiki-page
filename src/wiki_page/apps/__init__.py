@@ -108,6 +108,16 @@ app_entry_point = AppEntryPoint(
                         MenuItemDefinitions(),
                     ],
                 ),
+                MenuItemTerms(
+                    search_quantity='results.eln.descriptions',
+                    title='Descriptions',
+                    options=0,
+                ),
+                MenuItemTerms(
+                    search_quantity='results.eln.tags',
+                    title='Tags',
+                    options=10,
+                ),
             ],
         ),
     ),
