@@ -23,7 +23,7 @@ app_entry_point = AppEntryPoint(
     app=App(
         label='Wiki Pages',
         path='wiki-pages',
-        category='Experiment',
+        category='CBS',
         description='Search wiki-style knowledge base entries.',
         readme=(
             'This page allows you to search **wiki-style pages** within NOMAD. '
