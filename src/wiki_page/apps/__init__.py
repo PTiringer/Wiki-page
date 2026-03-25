@@ -54,10 +54,9 @@ app_entry_point = AppEntryPoint(
                 Menu(
                     title='Wiki Pages',
                     items=[
-                        MenuItemTerms(search_quantity='results.eln.tags', show_input=False),
                         MenuItemTerms(search_quantity='results.eln.names', options=0),
                         MenuItemTerms(search_quantity='results.eln.descriptions', options=0),
-                        MenuItemTerms(search_quantity='results.eln.lab_ids', options=0),
+                        MenuItemTerms(search_quantity='results.eln.tags', options=10),
                     ],
                 ),
                 Menu(
