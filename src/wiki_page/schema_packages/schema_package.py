@@ -32,11 +32,12 @@ class WikiPage(ElnBaseSection, EntryData):
         label='Wiki Page',
         a_eln=dict(
             lane_width='1200px',
-            hide=['lab_id'],
+            hide=['lab_id', 'datetime'],
             properties=dict(
                 order=[
                     'name',
                     'summary',
+                    'description',
                     'tags',
                     'to_do',
                 ]

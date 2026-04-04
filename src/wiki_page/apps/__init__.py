@@ -63,6 +63,9 @@ app_entry_point = AppEntryPoint(
                     title='To Do',
                     size='lg',
                     items=[
+			MenuItemHistogram(
+                            x=Axis(search_quantity=f'data.to_do.deadline#{schema}')
+                        ),
                         MenuItemTerms(
                             search_quantity=f'data.to_do.topic#{schema}',
                             options=10,
@@ -70,9 +73,6 @@ app_entry_point = AppEntryPoint(
                         MenuItemTerms(
                             search_quantity=f'data.to_do.assignee#{schema}',
                             options=10,
-                        ),
-                        MenuItemHistogram(
-                            x=Axis(search_quantity=f'data.to_do.deadline#{schema}')
                         ),
                     ],
                 ),
@@ -107,6 +107,13 @@ app_entry_point = AppEntryPoint(
                         MenuItemTerms(search_quantity='datasets.dataset_id', options=0),
                         MenuItemDefinitions(),
                     ],
+                ),
+		MenuItemHistogram(
+                    x=Axis(search_quantity=f'data.to_do.deadline#{schema}')
+                ),
+		MenuItemTerms(
+                    search_quantity=f'data.to_do.assignee#{schema}',
+                    options=10,
                 ),
                 MenuItemTerms(
                     search_quantity='results.eln.descriptions',
