@@ -2,7 +2,14 @@ from typing import TYPE_CHECKING
 
 from nomad.datamodel.data import BasicElnCategory, EntryData
 from nomad.datamodel.metainfo.eln import ElnBaseSection
-from nomad.metainfo import Datetime, MSection, Quantity, SchemaPackage, Section, SubSection
+from nomad.metainfo import (
+    Datetime,
+    MSection,
+    Quantity,
+    SchemaPackage,
+    Section,
+    SubSection,
+)
 
 if TYPE_CHECKING:
     from nomad.datamodel.datamodel import EntryArchive
@@ -30,20 +37,57 @@ class WikiPage(ElnBaseSection, EntryData):
     m_def = Section(
         categories=[BasicElnCategory],
         label='Wiki Page',
+        a_display=dict(
+            order=[
+                'name',
+                'description',
+                'ai_summary',
+                'tags',
+                'test',
+                'to_do',
+            ],
+            visible=dict(
+                include=[
+                    'name',
+                    'description',
+                    'ai_summary',
+                    'tags',
+                    'test',
+                    'to_do',
+                ]
+            ),
+        ),
         a_eln=dict(
             lane_width='1200px',
             hide=['lab_id', 'datetime'],
             properties=dict(
                 order=[
                     'name',
-                    'summary',
                     'description',
+                    'ai_summary',
                     'tags',
+                    'test',
                     'to_do',
-                ]
+                ],
+                visible=dict(
+                    include=[
+                        'name',
+                        'description',
+                        'ai_summary',
+                        'tags',
+                        'test',
+                        'to_do',
+                    ]
+                ),
             ),
         ),
-        a_template=dict(name='Untitled Wiki Page', tags=['wiki', 'knowledge-base']),
+        a_template=dict(
+            name='Untitled Wiki Page',
+            description='',
+            ai_summary='',
+            tags=['wiki', 'knowledge-base'],
+            test='',
+        ),
     )
 
     tags = Quantity(
@@ -52,9 +96,31 @@ class WikiPage(ElnBaseSection, EntryData):
         description='Search tags for this wiki page.',
         a_eln=dict(component='StringEditQuantity'),
     )
-    summary = Quantity(
+    test = Quantity(
         type=str,
-        a_eln=dict(component='RichTextEditQuantity', props=dict(height=180)),
+        description='Test field for checking wiki page editing.',
+        a_display=dict(visible=True, editable=True),
+        a_eln=dict(component='StringEditQuantity'),
+    )
+    description = Quantity(
+        type=str,
+        description='Description for this wiki page.',
+        a_display=dict(visible=True, editable=True),
+        a_eln=dict(
+            component='RichTextEditQuantity',
+            label='Description',
+            props=dict(height=180),
+        ),
+    )
+    ai_summary = Quantity(
+        type=str,
+        description='AI-generated summary for this wiki page.',
+        a_display=dict(visible=True, editable=True),
+        a_eln=dict(
+            component='RichTextEditQuantity',
+            label='AI summary',
+            props=dict(height=180),
+        ),
     )
     to_do = SubSection(
         section_def=WikiTodoItem,
@@ -63,7 +129,20 @@ class WikiPage(ElnBaseSection, EntryData):
     )
 
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
+        if self.description is None:
+            self.description = ''
+        if self.ai_summary is None:
+            self.ai_summary = ''
+        if self.test is None:
+            self.test = ''
+
         super().normalize(archive, logger)
+
+        if self.ai_summary and archive.results and archive.results.eln:
+            if archive.results.eln.descriptions is None:
+                archive.results.eln.descriptions = []
+            if self.ai_summary not in archive.results.eln.descriptions:
+                archive.results.eln.descriptions.append(self.ai_summary)
 
         if not self.tags:
             self.tags = ['wiki']

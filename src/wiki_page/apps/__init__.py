@@ -9,7 +9,6 @@ from nomad.config.models.ui import (
     MenuItemCustomQuantities,
     MenuItemDefinitions,
     MenuItemHistogram,
-    MenuItemOptimade,
     MenuItemTerms,
     MenuItemVisibility,
     SearchQuantities,
@@ -30,19 +29,28 @@ app_entry_point = AppEntryPoint(
             'It is intended for ELN-like knowledge base content with rich text '
             'summaries, tags, and structured To Do items.'
         ),
-        search_quantities=SearchQuantities(include=[f'*#{schema}']),
+        search_quantities=SearchQuantities(
+            include=[
+                f'*#{schema}',
+                'results.eln.names',
+                'results.eln.descriptions',
+                'results.eln.tags',
+            ]
+        ),
         filters_locked={'section_defs.definition_qualified_name': schema},
         filters=Filters(exclude=['mainfile', 'entry_name', 'combine']),
         columns=Columns(
             selected=[
                 'entry_name',
-                f'data.summary#{schema}',
+                'results.eln.descriptions',
+                f'data.ai_summary#{schema}',
                 'upload_create_time',
                 'authors',
             ],
             options={
                 'entry_name': Column(label='Title'),
-                f'data.summary#{schema}': Column(label='Summary'),
+                'results.eln.descriptions': Column(label='Description'),
+                f'data.ai_summary#{schema}': Column(label='AI summary'),
                 'upload_create_time': Column(label='Updated'),
                 'authors': Column(),
             },
@@ -113,7 +121,7 @@ app_entry_point = AppEntryPoint(
                 ),
 		MenuItemTerms(
                     search_quantity=f'data.to_do.assignee#{schema}',
-                    options=10,
+                    options=4,
                 ),
                 MenuItemTerms(
                     search_quantity='results.eln.descriptions',
@@ -123,7 +131,7 @@ app_entry_point = AppEntryPoint(
                 MenuItemTerms(
                     search_quantity='results.eln.tags',
                     title='Tags',
-                    options=10,
+                    options=4,
                 ),
             ],
         ),

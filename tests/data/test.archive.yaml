@@ -3,8 +3,11 @@ data:
   name: Home
   tags:
     - knowledge-base
-  summary: |
+  description: |
+    <p>Overview of the internal wiki page.</p>
+  ai_summary: |
     <p>Landing page for the wiki.</p>
+  test: Test value
   to_do:
     - topic: Publish editorial rules
       assignee: Alice
