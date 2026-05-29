@@ -56,6 +56,10 @@ class WikiPage(ElnBaseSection, EntryData):
         type=str,
         a_eln=dict(component='RichTextEditQuantity', props=dict(height=180)),
     )
+    next_deadline = Quantity(
+        type=Datetime,
+        description='Earliest deadline from the To Do list. Used for search filtering.',
+    )
     to_do = SubSection(
         section_def=WikiTodoItem,
         repeats=True,
@@ -64,6 +68,9 @@ class WikiPage(ElnBaseSection, EntryData):
 
     def normalize(self, archive: 'EntryArchive', logger: 'BoundLogger') -> None:
         super().normalize(archive, logger)
+
+        deadlines = [item.deadline for item in self.to_do or [] if item.deadline]
+        self.next_deadline = min(deadlines) if deadlines else None
 
         if not self.tags:
             self.tags = ['wiki']
