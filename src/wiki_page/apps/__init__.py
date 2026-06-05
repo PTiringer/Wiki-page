@@ -63,10 +63,10 @@ app_entry_point = AppEntryPoint(
                     title='To Do',
                     size='lg',
                     items=[
-                        MenuItemTerms(
+                        MenuItemHistogram(
                             title='Deadline',
-                            search_quantity=f'data.to_do.deadline#{schema}',
-                            options=10,
+                            x=Axis(search_quantity=f'data.to_do.deadline#{schema}'),
+                            show_statistics=False,
                         ),
                         MenuItemTerms(
                             search_quantity=f'data.to_do.topic#{schema}',
