@@ -10,7 +10,9 @@ data:
   to_do:
     - topic: Review NeXus ingestion guide
       assignee: Documentation Team
+      status: In progress
       deadline: '2026-04-01T00:00:00+00:00'
     - topic: Add instrument naming conventions
       assignee: Lab Ops
+      status: Not started
       deadline: '2026-04-15T00:00:00+00:00'

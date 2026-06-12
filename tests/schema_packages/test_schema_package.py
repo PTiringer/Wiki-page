@@ -13,4 +13,5 @@ def test_schema_package():
     assert len(entry_archive.data.to_do) == 1
     assert entry_archive.data.to_do[0].topic == 'Publish editorial rules'
     assert entry_archive.data.to_do[0].assignee == 'Alice'
+    assert entry_archive.data.to_do[0].status == 'In progress'
     assert entry_archive.metadata.entry_name == 'Home'

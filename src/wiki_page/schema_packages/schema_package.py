@@ -2,13 +2,23 @@ from typing import TYPE_CHECKING
 
 from nomad.datamodel.data import BasicElnCategory, EntryData
 from nomad.datamodel.metainfo.eln import ElnBaseSection
-from nomad.metainfo import Datetime, MSection, Quantity, SchemaPackage, Section, SubSection
+from nomad.metainfo import (
+    Datetime,
+    MEnum,
+    MSection,
+    Quantity,
+    SchemaPackage,
+    Section,
+    SubSection,
+)
 
 if TYPE_CHECKING:
     from nomad.datamodel.datamodel import EntryArchive
     from structlog.stdlib import BoundLogger
 
 m_package = SchemaPackage(name='wiki_page')
+
+TODO_STATUSES = ['Not started', 'In progress', 'Done']
 
 
 class WikiTodoItem(MSection):
@@ -17,12 +27,20 @@ class WikiTodoItem(MSection):
         label_quantity='topic',
         a_eln=dict(
             overview=True,
-            properties=dict(order=['topic', 'assignee', 'deadline']),
+            properties=dict(order=['topic', 'assignee', 'status', 'deadline']),
         ),
     )
 
     topic = Quantity(type=str, a_eln=dict(component='StringEditQuantity'))
     assignee = Quantity(type=str, a_eln=dict(component='StringEditQuantity'))
+    status = Quantity(
+        type=MEnum(TODO_STATUSES),
+        default='Not started',
+        a_eln=dict(
+            component='EnumEditQuantity',
+            props=dict(suggestions=TODO_STATUSES),
+        ),
+    )
     deadline = Quantity(type=Datetime, a_eln=dict(component='DateTimeEditQuantity'))
 
 

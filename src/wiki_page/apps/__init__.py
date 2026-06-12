@@ -76,6 +76,10 @@ app_entry_point = AppEntryPoint(
                             search_quantity=f'data.to_do.assignee#{schema}',
                             options=10,
                         ),
+                        MenuItemTerms(
+                            search_quantity=f'data.to_do.status#{schema}',
+                            options=3,
+                        ),
                     ],
                 ),
                 Menu(
