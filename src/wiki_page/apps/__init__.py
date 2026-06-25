@@ -9,7 +9,6 @@ from nomad.config.models.ui import (
     MenuItemCustomQuantities,
     MenuItemDefinitions,
     MenuItemHistogram,
-    MenuItemOptimade,
     MenuItemTerms,
     MenuItemVisibility,
     SearchQuantities,
@@ -66,7 +65,6 @@ app_entry_point = AppEntryPoint(
                         MenuItemHistogram(
                             title='Deadline',
                             x=Axis(search_quantity=f'data.to_do.deadline#{schema}'),
-                            show_statistics=False,
                         ),
                         MenuItemTerms(
                             search_quantity=f'data.to_do.topic#{schema}',
