@@ -54,8 +54,8 @@ class WikiPage(ElnBaseSection, EntryData):
             properties=dict(
                 order=[
                     'name',
-                    'summary',
                     'description',
+		    'summary'
                     'tags',
                     'to_do',
                 ]
