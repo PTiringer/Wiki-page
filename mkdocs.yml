@@ -1,5 +1,5 @@
 site_name: Wiki-page
-site_description: Searchable Wiki Page
+site_description: Create and search NOMAD wiki pages with rich text, tags, and structured To Dos
 site_author: Peter Tiringer
 
 repo_url: https://github.com/PTiringer/Wiki-page
@@ -55,5 +55,4 @@ use_directory_urls: false
 extra_css:
   - stylesheets/extra.css
 extra_javascript:
-  - javascript.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
